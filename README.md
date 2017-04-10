@@ -6,6 +6,8 @@ Use Cases:
 2. The user will be able to view and purchase goods from a list
 3. The user will be able to edit his shopping cart and his account info
 4. The user will have a history of his purchases
+5. The user will be able to use the online calculator to find the correct skies and / or snowboards for himself
+6. The user will be able to view weekly promotions and subscribe to the newsletter
 
 
 
