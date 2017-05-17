@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -33,20 +34,33 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-          try (PrintWriter out = response.getWriter()) {
-        ResultSet rs = null;
-                     Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/wad","asa","asa" ) ;
-                Statement instr =   con.createStatement();
-                String myUname = request.getParameter("uname");  
-                String myPass = request.getParameter("pass");
-                rs = instr.executeQuery("Select * FROM DATA WHERE uname = myUname ,myPass=pass");
-                if(rs.next())
-                    out.println("Welcome on board;You are logged in");
-                else
-                      response.sendRedirect("/index.html"); 
-      
+                    ResultSet result = null; 
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+                        try ( /* TODO output your page here. You may use following sample code. */ 
+                                Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/wad","asa","asa" )) {
+                                ResultSet rs = null;
+                                String myUname = request.getParameter("uname");
+                                String myPass = request.getParameter("pass");
+                            try{ 
+                                PreparedStatement instr = con.prepareStatement("SELECT * from DATA WHERE uname = ? AND password = ?");
+                                instr.setString(1, myUname);
+                                instr.setString(2, myPass);
+                                rs = instr.executeQuery();
+                                if (rs.next()) {    
+                                    out.print("Bravo");
+                                    //redirect them as logged in to the main page
+                                } else {
+                                    out.print("boss");
+                                    response.sendRedirect("index.html");
+                                }
+//                                out.print(rs.toString());
+                            }catch(Exception e){
+                                System.out.println(e.getMessage());
+                            }
+                        }
         }
     }
 
@@ -96,5 +110,6 @@ public class LoginServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }

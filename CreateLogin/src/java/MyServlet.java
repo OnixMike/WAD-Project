@@ -41,33 +41,39 @@ public class MyServlet extends HttpServlet {
                     ResultSet result = null; 
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            
-            /* TODO output your page here. You may use following sample code. */
-             Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/wad","asa","asa" ) ;
-             ResultSet rs = null;
-            PreparedStatement instr =  (PreparedStatement) con.createStatement();
-            PreparedStatement nou =  (PreparedStatement) con.createStatement();
-            String myUname = request.getParameter("uname");  
-            String pass = request.getParameter("pass");
-            String lname = request.getParameter("lname"); 
-            String fname = request.getParameter("fname"); 
-            String email = request.getParameter("email");  
-            String phone = request.getParameter("phone"); 
-                         out.print(myUname);
-            result = nou.executeQuery("select fname from register where uname = myUname;");
-            if(result.next()){
-               out.println("Username already exists"); //data exists
-                    response.sendRedirect("/index.html"); 
-            }
-             else
-             {
-                 out.println("bravo");
-                 String  st="insert into data  VALUES ('"+fname+"', '"+lname+"','"+email+"','"+phone+"','"+myUname+"',"
-                    + "'"+pass+"')";
-                int i = instr.executeUpdate(st);
-            }
-             instr.close();
-             con.close();
+                        try ( /* TODO output your page here. You may use following sample code. */ 
+                                Connection con = DriverManager.getConnection("jdbc:derby://localhost:1527/wad","asa","asa" )) {
+                                ResultSet rs = null;
+                                String myUname = request.getParameter("uname");
+                                String pass = request.getParameter("pass");
+                                String lname = request.getParameter("lname");
+                                String fname = request.getParameter("fname");
+                                String email = request.getParameter("email");
+                                String phone = request.getParameter("phone");
+                                PreparedStatement instr =  con.prepareStatement("SELECT fname from DATA WHERE uname = ?");
+                                instr.setString(1, myUname);
+                                rs = instr.executeQuery();
+                                if  (rs.next()) 
+                                    response.sendRedirect("index.html");
+                                else {
+                                    String  st = "INSERT INTO DATA  VALUES (?, ?, ?, ?, ?, ?)";
+                                    PreparedStatement insert = con.prepareStatement(st);
+                                    insert.setString(1, fname);
+                                    insert.setString(2, lname);
+                                    insert.setString(3, email);
+                                    insert.setString(4, phone);
+                                    insert.setString(5, myUname);
+                                    insert.setString(6, pass);
+                                    int inserted = insert.executeUpdate();
+                                    con.commit();
+                                    insert.close();
+                                   // redirect as logged in 
+                                }
+
+//                                out.print(rs.toString());
+                                instr.close();
+                                out.print("done");
+                        }
         }
     }
 
@@ -117,5 +123,6 @@ public class MyServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
 
 }
