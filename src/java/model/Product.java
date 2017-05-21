@@ -5,12 +5,17 @@
  */
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
 /**
  *
  * @author Krebons
  */
+
 public class Product {
 
+   
     private int id;
     private String name;
     private String type;
