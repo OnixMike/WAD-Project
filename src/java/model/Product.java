@@ -7,20 +7,22 @@ package model;
 
 /**
  *
- * @author Mihai
+ * @author Krebons
  */
 public class Product {
 
     private int id;
     private String name;
     private String type;
-    private int price;
+    private int size;
+    private double price;
     private int qty;
 
-    public Product(int id, String name, String type, int price, int qty) {
+    public Product(int id, String name, String type,int size, double price, int qty) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.size=size;
         this.price = price;
         this.qty = qty;
     }
@@ -31,6 +33,14 @@ public class Product {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
     }
 
     public String getName() {
@@ -49,7 +59,7 @@ public class Product {
         this.type = type;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 

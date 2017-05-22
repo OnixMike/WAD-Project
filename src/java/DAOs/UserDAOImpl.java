@@ -5,7 +5,6 @@
  */
 package DAOs;
 
-import DAOs.UserDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author E-M
+ * @author Krebons
  */
 public class UserDAOImpl implements UserDAO {
 

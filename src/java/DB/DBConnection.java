@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package DB;
 
 import java.sql.Connection;
@@ -14,8 +19,7 @@ public class DBConnection {
 
     public DBConnection() {
 
-        String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-        String url = "jdbc:mysql://localhost:3306/ski_shop";
+        String url = "jdbc:derby://localhost:1527/ski_shop";
 
         try {
             con = DriverManager.getConnection(url, "root", "1234");

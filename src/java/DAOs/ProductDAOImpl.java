@@ -17,7 +17,7 @@ import model.Product;
 
 /**
  *
- * @author E-M
+ * @author Krebons
  */
 public class ProductDAOImpl implements ProductDAO {
 
@@ -44,11 +44,11 @@ public class ProductDAOImpl implements ProductDAO {
                 System.out.println("name : " + name);
                 String type = rs.getString(3);
                 System.out.println("type : " + type);
-                String description = rs.getString(4);
-                int unitPrice = Integer.parseInt(rs.getString(5));
+                int size = Integer.parseInt(rs.getString(4));
+                double unitPrice = Double.parseDouble(rs.getString(5));
                 int qty = Integer.parseInt(rs.getString(6));
 
-                Product p = new Product(id, name, type, unitPrice, qty);
+                Product p = new Product(id, name, type,size, unitPrice, qty);
 
                 products.add(p);
 

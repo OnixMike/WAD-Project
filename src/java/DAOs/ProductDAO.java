@@ -10,7 +10,7 @@ import model.Product;
 
 /**
  *
- * @author E-M
+ * @author Krebons
  */
 public interface ProductDAO {
     

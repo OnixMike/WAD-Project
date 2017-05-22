@@ -7,7 +7,7 @@ package model;
 
 /**
  *
- * @author Mihai
+ * @author Krebons
  */
 public class User {
     
@@ -20,7 +20,9 @@ public class User {
         this.username = username;
         this.password = password;
     }
-
+    public User(){
+        
+    }
     public String getName() {
         return name;
     }
